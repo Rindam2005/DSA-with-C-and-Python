@@ -1,0 +1,8 @@
+// IN C
+#include<stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+int i, j, n, save, insertion, insert_element, position, elements, array[30];
+printf("Enter the number of elements in an array: ")
