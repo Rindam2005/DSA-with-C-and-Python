@@ -1,0 +1,66 @@
+// In C, the size of a static array must be known at compile time.
+#include <stdio.h>
+int main() 
+{
+    // Declaration and initialization
+    int arr[5] = {10, 20, 30, 40, 50};
+
+    // Accessing and Traversal
+    printf("Array elements: ");
+    for(int i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
+    }
+    
+    return 0;
+}
+//While C++ supports C-style arrays, std::vector is the standard for a dynamic linear array (Data Structure).
+#include <iostream>
+#include <vector>
+
+int main() {
+    // Dynamic array (Vector)
+    std::vector<int> arr = {10, 20, 30, 40, 50};
+
+    // Adding an element
+    arr.push_back(60);
+
+    // Traversal
+    std::cout << "Array elements: ";
+    for (int val: arr) {
+        std::cout << val << " ";
+    }
+
+    return 0;
+}
+// Python does not have a "primitive" array in the same sense as C; it uses Lists, which are highly optimized dynamic arrays.
+# Declaration and initialization
+arr = [10, 20, 30, 40, 50]
+
+# Adding an element
+arr.append(60)
+
+# Traversal
+print("Array elements:", end=" ")
+for item in arr:
+    print(item, end=" ")
+//In Java, arrays are objects. Their size is fixed once initialized.
+public class Main 
+{
+    public static void main(String[] args) {
+        // Declaration and initialization
+        int[] arr = {10, 20, 30, 40, 50};
+
+        // Traversal
+        System.out.print("Array elements: ");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+//Feature	
+                  C	C++ (Vector)	Python (List)	Java
+Size	          Fixed	Dynamic	Dynamic	Fixed
+Memory	        Stack/Heap	Heap	Heap	Heap
+Bound           Check	No	Optional (.at())	Yes	Yes
+Ease of Use	    Low	Medium	High	Medium
+
