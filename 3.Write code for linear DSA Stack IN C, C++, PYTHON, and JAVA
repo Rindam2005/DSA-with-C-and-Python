@@ -1,0 +1,99 @@
+// In C, we manually manage the top index and define a fixed size.
+#include <stdio.h>
+#define MAX 100
+
+struct Stack {
+    int items[MAX];
+    int top;
+};
+
+void init(struct Stack* s) { s->top = -1; }
+
+void push(struct Stack* s, int x) {
+    if (s->top == MAX - 1) printf("Overflow\n");
+    else s->items[++(s->top)] = x;
+}
+
+int pop(struct Stack* s) {
+    if (s->top == -1) return -1;
+    return s->items[(s->top)--];
+}
+
+int main() {
+    struct Stack s;
+    init(&s);
+    push(&s, 10);
+    printf("Popped: %d\n", pop(&s));
+    return 0;
+}
+// C++ allows us to encapsulate the data and logic within a class.
+#include <iostream>
+using namespace std;
+
+class Stack {
+    int top;
+    int arr[100];
+public:
+    Stack() { top = -1; }
+    void push(int x) {
+        if (top >= 99) cout << "Stack Overflow";
+        else arr[++top] = x;
+    }
+    int pop() {
+        if (top < 0) return -1;
+        return arr[top--];
+    }
+};
+
+int main() {
+    Stack s;
+    s.push(20);
+    cout << "Popped: " << s.pop() << endl;
+    return 0;
+}
+// Python lists have built-in methods (append and pop) that make them natural stacks.
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.stack.pop()
+        return "Stack Underflow"
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+# Usage
+s = Stack()
+s.push(30)
+print(f"Popped: {s.pop()}")
+//Java uses a class-based approach similar to C++, but often handles exceptions or returns error codes.
+class Stack {
+    private int[] arr = new int[100];
+    private int top = -1;
+
+    public void push(int x) {
+        if (top == 99) System.out.println("Overflow");
+        else arr[++top] = x;
+    }
+
+    public int pop() {
+        if (top == -1) return -1;
+        return arr[top--];
+    }
+
+    public static void main(String[] args) {
+        Stack s = new Stack();
+        s.push(40);
+        System.out.println("Popped: " + s.pop());
+    }
+}
+
+//Operation,  Time Complexity,  Space Complexity
+  Push,          O(1),              O(1)
+  Pop,           O(1),              O(1)
+  Peek,          O(1),              O(1)
