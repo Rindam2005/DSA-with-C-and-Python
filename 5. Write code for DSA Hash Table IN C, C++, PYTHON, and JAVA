@@ -1,0 +1,170 @@
+// C requires manual memory management and struct definitions for the nodes and the table itself.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SIZE 10
+
+struct Node {
+    char* key;
+    int value;
+    struct Node* next;
+};
+
+struct HashTable {
+    struct Node* buckets[SIZE];
+};
+
+int hashFunction(char* key) {
+    int sum = 0;
+    for (int i = 0; key[i] != '\0'; i++) sum += key[i];
+    return sum % SIZE;
+}
+
+void insert(struct HashTable* table, char* key, int value) {
+    int index = hashFunction(key);
+    struct Node* newNode = malloc(sizeof(struct Node));
+    newNode->key = strdup(key);
+    newNode->value = value;
+    newNode->next = table->buckets[index];
+    table->buckets[index] = newNode;
+}
+
+int get(struct HashTable* table, char* key) {
+    int index = hashFunction(key);
+    struct Node* temp = table->buckets[index];
+    while (temp) {
+        if (strcmp(temp->key, key) == 0) return temp->value;
+        temp = temp->next;
+    }
+    return -1;
+}
+
+int main() {
+    struct HashTable table = {0};
+    insert(&table, "Alice", 25);
+    printf("Alice: %d\n", get(&table, "Alice"));
+    return 0;
+}
+// C++ allows for a more object-oriented approach using std::vector and std::list.
+#include <iostream>
+#include <vector>
+#include <list>
+#include <string>
+
+class HashTable {
+    int buckets;
+    std::vector<std::list<std::pair<std::string, int>>> table;
+
+public:
+    HashTable(int n) : buckets(n), table(n) {}
+
+    int hashFunction(std::string key) {
+        int sum = 0;
+        for (char ch : key) sum += ch;
+        return sum % buckets;
+    }
+
+    void insert(std::string key, int value) {
+        int index = hashFunction(key);
+        table[index].push_back({key, value});
+    }
+
+    int get(std::string key) {
+        int index = hashFunction(key);
+        for (auto& pair : table[index]) {
+            if (pair.first == key) return pair.second;
+        }
+        return -1;
+    }
+};
+
+int main() {
+    HashTable ht(10);
+    ht.insert("Bob", 30);
+    std::cout << "Bob: " << ht.get("Bob") << std::endl;
+    return 0;
+}
+// Python’s dynamic nature makes this very concise. While Python has a built-in dict, here is a manual implementation.
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [[] for _ in range(size)]
+
+    def _hash(self, key):
+        return sum(ord(char) for char in key) % self.size
+
+    def insert(self, key, value):
+        index = self._hash(key)
+        for kv in self.table[index]:
+            if kv[0] == key:
+                kv[1] = value
+                return
+        self.table[index].append([key, value])
+
+    def get(self, key):
+        index = self._hash(key)
+        for kv in self.table[index]:
+            if kv[0] == key:
+                return kv[1]
+        return None
+
+ht = HashTable(10)
+ht.insert("Charlie", 22)
+print(f"Charlie: {ht.get('Charlie')}")
+// Java uses a class-based structure with a generic-like approach (though simplified here for clarity).
+import java.util.LinkedList;
+
+class HashTable {
+    private class Node {
+        String key;
+        int value;
+        Node(String key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private LinkedList<Node>[] table;
+    private int size;
+
+    public HashTable(int size) {
+        this.size = size;
+        table = new LinkedList[size];
+        for (int i = 0; i < size; i++) table[i] = new LinkedList<>();
+    }
+
+    private int hashFunction(String key) {
+        return Math.abs(key.hashCode()) % size;
+    }
+
+    public void insert(String key, int value) {
+        int index = hashFunction(key);
+        for (Node node : table[index]) {
+            if (node.key.equals(key)) {
+                node.value = value;
+                return;
+            }
+        }
+        table[index].add(new Node(key, value));
+    }
+
+    public Integer get(String key) {
+        int index = hashFunction(key);
+        for (Node node : table[index]) {
+            if (node.key.equals(key)) return node.value;
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        HashTable ht = new HashTable(10);
+        ht.insert("Diana", 28);
+        System.out.println("Diana: " + ht.get("Diana"));
+    }
+}
+
+// Feature,C,C++,Python,Java
+Memory,Manual (malloc),Automatic (RAII),Automatic (GC),Automatic (GC)
+Data Structure,Arrays & Pointers,vector & list,List of Lists,Array of LinkedList
+Complexity,High (boiler-plate),Moderate,Low,Moderate
