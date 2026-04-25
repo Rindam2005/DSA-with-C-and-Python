@@ -1,0 +1,83 @@
+//IN C (Using Arrays)
+#include <stdio.h>
+#define SIZE 5
+
+int items[SIZE], front = -1, rear = -1;
+
+void enqueue(int value) {
+    if (rear == SIZE - 1)
+        printf("Queue Full\n");
+    else {
+        if (front == -1) front = 0;
+        items[++rear] = value;
+    }
+}
+
+void dequeue() {
+    if (front == -1 || front > rear)
+        printf("Queue Empty\n");
+    else {
+        printf("Deleted: %d\n", items[front++]);
+        if (front > rear) front = rear = -1;
+    }
+}
+
+int main() {
+    enqueue(10); enqueue(20);
+    dequeue();
+    return 0;
+}
+// IN C++ (Using STL)
+#include <iostream>
+#include <queue>
+
+int main() {
+    std::queue<int> q;
+
+    q.push(10); // Enqueue
+    q.push(20);
+
+    std::cout << "Front: " << q.front() << std::endl;
+
+    q.pop();    // Dequeue
+    std::cout << "After pop, Front: " << q.front() << std::endl;
+
+    return 0;
+}
+// IN Python (Using collections.deque)
+from collections import deque
+
+# Deque is preferred over lists for O(1) appends and pops
+queue = deque()
+
+# Enqueue
+queue.append(10)
+queue.append(20)
+
+# Dequeue
+print(f"Removed: {queue.popleft()}")
+
+# Peek
+if queue:
+    print(f"Front element: {queue[0]}")
+
+// IN Java (Using LinkedList class)
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+    public static void main(String[] args) {
+        Queue<Integer> q = new LinkedList<>();
+
+        // Enqueue
+        q.add(10);
+        q.add(20);
+
+        // Dequeue
+        System.out.println("Removed: " + q.poll());
+
+        // Peek
+        System.out.println("Front: " + q.peek());
+    }
+}
+
