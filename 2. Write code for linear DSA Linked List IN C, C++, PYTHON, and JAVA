@@ -1,0 +1,105 @@
+//In C, we use struct for the node and malloc for memory allocation.
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void printList(struct Node* n) {
+    while (n != NULL) {
+        printf("%d -> ", n->data);
+        n = n->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* second = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 10;
+    head->next = second;
+    second->data = 20;
+    second->next = NULL;
+
+    printList(head);
+    return 0;
+}
+//C++ allows us to wrap the logic inside a class and use the new keyword.
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+void display(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << " -> ";
+        head = head->next;
+    }
+    cout << "NULL" << endl;
+}
+
+int main() {
+    Node* head = new Node(10);
+    head->next = new Node(20);
+    display(head);
+    return 0;
+}  
+//Python doesn't use pointers explicitly; instead, it uses object references. It’s much cleaner but hides the memory management.
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def display(self):
+        temp = self.head
+        while temp:
+            print(f"{temp.data} ->", end=" ")
+            temp = temp.next
+        print("None")
+
+# Usage
+llist = LinkedList()
+llist.head = Node(10)
+llist.head.next = Node(20)
+llist.display()
+//Java is strictly object-oriented and, like Python, handles memory via garbage collection.
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Node head = new Node(10);
+        head.next = new Node(20);
+
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+}
+
+// Key Takeaways    Memory: In C/C++, you are responsible for the memory. In Python/Java, the runtime handles it. Access: Finding an element in a Linked List is $O(n)$ because you have to start from the head and traverse. Insertion: If you already have a pointer to the location, inserting a new node is a quick $O(1)$ operation.
